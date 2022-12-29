@@ -3,7 +3,7 @@
         "driver": "pg",
         "host": "localhost",
         "database": {
-            "ENV": "DEV_POSTGRES_DB"
+            "ENV": "POSTGRES_DB"
         },
         "user": {
             "ENV": "POSTGRES_USER"
@@ -16,7 +16,7 @@
         "driver": "pg",
         "host": "localhost",
         "database": {
-            "ENV": "TEST_POSTGRES_DB"
+            "ENV": "POSTGRES_TEST_DB"
         },
         "user": {
             "ENV": "POSTGRES_USER"

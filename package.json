@@ -7,10 +7,10 @@
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "jasmine-ts",
-    "tsc": "tsc",
+    "tsc": "npx tsc",
     "dev": "ts-node src/server.ts"
   },
-  "repository": "git@github.com:samcoded/storefront-backend-api.git",
+  "repository": "git@github.com:samcoded/Storefront-Backend-API.git",
   "author": "Samuel Anozie",
   "license": "ISC",
   "dependencies": {
