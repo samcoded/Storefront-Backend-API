@@ -13,7 +13,7 @@ export interface User {
 }
 
 export class UserStore {
-    async getUser(): Promise<User[]> {
+    async index(): Promise<User[]> {
         try {
             // @ts-ignore
             const connection = await Client.connect();
@@ -25,6 +25,25 @@ export class UserStore {
             throw new Error(`Can not get users. ${err}`);
         }
     }
+
+    async checkUserExist(username: string): Promise<boolean> {
+        try {
+            const sql = 'SELECT username FROM users WHERE username=($1)';
+            // @ts-ignore
+            const conn = await Client.connect();
+            const { rows } = await conn.query(sql, [username]);
+
+            if (rows.length > 0) {
+                return true;
+            }
+            conn.release();
+            return false;
+        } catch (err) {
+            // throw new Error(`Could not find user ${username}. ${err}`);
+            return false;
+        }
+    }
+
     async create(user: User): Promise<User> {
         const { firstname, lastname, username, password } = user;
 
@@ -45,7 +64,6 @@ export class UserStore {
             ]);
 
             connection.release();
-
             return rows[0];
         } catch (err) {
             throw new Error(
@@ -91,7 +109,7 @@ export class UserStore {
         }
     }
 
-    async deleteUser(id: number): Promise<boolean> {
+    async delete(id: number): Promise<boolean> {
         try {
             const sql = 'DELETE FROM users WHERE id=($1)';
             // @ts-ignore
@@ -109,7 +127,7 @@ export class UserStore {
         password: string
     ): Promise<User | null> {
         try {
-            const sql = 'SELECT password FROM users WHERE username=($1)';
+            const sql = 'SELECT * FROM users WHERE username=($1)';
             // @ts-ignore
             const conn = await Client.connect();
             const { rows } = await conn.query(sql, [username]);

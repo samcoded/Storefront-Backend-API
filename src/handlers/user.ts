@@ -7,7 +7,7 @@ const userStore = new UserStore();
 
 const index = async (_req: Request, res: Response) => {
     try {
-        const users: User[] = await userStore.getUser();
+        const users: User[] = await userStore.index();
         res.json(users);
     } catch (err) {
         res.status(400).json(err);
@@ -28,6 +28,13 @@ const create = async (req: Request, res: Response) => {
             );
             return false;
         }
+
+        if (await userStore.checkUserExist(username)) {
+            res.status(400);
+            res.send('Username already exists. Please try again');
+            return false;
+        }
+
         const user: User = await userStore.create({
             firstname,
             lastname,
@@ -84,7 +91,7 @@ const deleteUser = async (req: Request, res: Response) => {
             res.status(400).send('Missing required parameter :id.');
             return false;
         }
-        await userStore.deleteUser(id);
+        await userStore.delete(id);
         res.send(`User with id ${id} successfully deleted.`);
     } catch (err) {
         res.status(400).json(err);
@@ -124,5 +131,5 @@ export default function userRoutes(app: Application) {
     app.get('/users/:id', verifyToken, read);
     app.put('/users/:id', verifyToken, update);
     app.delete('/users/:id', verifyToken, deleteUser);
-    app.post('/users/authenticate', authenticate);
+    app.post('/users/auth', authenticate);
 }
