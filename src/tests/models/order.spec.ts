@@ -72,7 +72,7 @@ describe('Order Model', () => {
         expect(orderStore.index).toBeDefined();
     });
 
-    it('Show method is present', () => {
+    it('Read method is present', () => {
         expect(orderStore.read).toBeDefined();
     });
 
@@ -116,7 +116,7 @@ describe('Order Model', () => {
         await deleteOrder(createdOrder.id as number);
     });
 
-    it('Show method should return the correct orders', async () => {
+    it('Read method should return the correct orders', async () => {
         const createdOrder: Order = await createOrder(order);
         const orderFromDb = await orderStore.read(createdOrder.id as number);
 
