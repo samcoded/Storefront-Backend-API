@@ -2,7 +2,7 @@ import { Product, ProductStore } from '../../models/product';
 
 const productStore = new ProductStore();
 
-describe('Product Model', () => {
+describe('Test Suite for Products Model', () => {
     const product: Product = {
         name: 'Havells Fan',
         price: 2000,

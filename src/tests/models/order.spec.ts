@@ -4,7 +4,7 @@ import { Product, ProductStore } from '../../models/product';
 
 const orderStore = new OrderStore();
 
-describe('Order Model', () => {
+describe('Test Suite for Orders Model', () => {
     const userStore = new UserStore();
     const productStore = new ProductStore();
 
@@ -41,7 +41,7 @@ describe('Order Model', () => {
 
         order = {
             user_id: userId,
-            status: true,
+            status: 'active',
             products: [
                 {
                     product_id: productId,
@@ -52,7 +52,7 @@ describe('Order Model', () => {
 
         retrievedOrder = {
             user_id: userId,
-            status: true,
+            status: 'active',
             products: [
                 {
                     product_id: productId,
@@ -135,7 +135,7 @@ describe('Order Model', () => {
                 },
             ],
             user_id: userId,
-            status: false,
+            status: 'complete',
         };
 
         const { products, status } = await orderStore.update(
@@ -177,7 +177,7 @@ describe('Order Model', () => {
                 },
             ],
             user_id: userId,
-            status: false,
+            status: 'complete',
         };
 
         await orderStore.update(createdOrder.id as number, newOrderData);
@@ -187,7 +187,7 @@ describe('Order Model', () => {
             {
                 id: createdOrder.id,
                 user_id: userId,
-                status: false,
+                status: 'complete',
                 products: [
                     {
                         product_id: productId,

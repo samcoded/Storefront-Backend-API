@@ -2,7 +2,7 @@ import { User, UserStore } from '../../models/user';
 
 const userStore = new UserStore();
 
-describe('User Model', () => {
+describe('Test Suite for Users Model', () => {
     const user: User = {
         username: 'JakeDoe',
         firstname: 'Jake',

@@ -9,7 +9,7 @@ dotenv.config();
 const request = supertest(app);
 const SECRET = process.env.JWTSECRET as Secret;
 
-describe('User Handler', () => {
+describe('Test Suite for Users Handler', () => {
     const userData: User = {
         username: 'JakeDoe',
         firstname: 'Jake',

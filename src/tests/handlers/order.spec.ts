@@ -1,16 +1,17 @@
 import supertest from 'supertest';
 import jwt, { Secret } from 'jsonwebtoken';
 import app from '../../app';
-import { Order } from '../../models/order';
+import { Order, OrderStore } from '../../models/order';
 import { User } from '../../models/user';
 import { Product } from '../../models/product';
 import dotenv from 'dotenv';
 
+const orderStore = new OrderStore();
 dotenv.config();
 const request = supertest(app);
 const SECRET = process.env.JWTSECRET as Secret;
 
-describe('Order Handler', () => {
+describe('Test Suite for Orders Handler', () => {
     let token: string,
         order: Order,
         user_id: number,
@@ -41,7 +42,7 @@ describe('Order Handler', () => {
             .post('/products')
             .set('Authorization', 'bearer ' + token)
             .send(productData);
-        console.log(productBody);
+
         product_id = productBody.id;
 
         order = {
@@ -52,7 +53,7 @@ describe('Order Handler', () => {
                 },
             ],
             user_id,
-            status: true,
+            status: 'active',
         };
     });
 
@@ -76,7 +77,7 @@ describe('Order Handler', () => {
         expect(res.status).toBe(401);
         res = await request.get(`/orders/current/1`);
         expect(res.status).toBe(401);
-        res = await request.get(`/orders/complete/1`);
+        res = await request.get(`/orders/completed/1`);
         expect(res.status).toBe(401);
     });
 
@@ -116,6 +117,26 @@ describe('Order Handler', () => {
             });
     });
 
+    it('Should access the user current order endpoint', (done) => {
+        request
+            .get(`/orders/current/${user_id}`)
+            .set('Authorization', 'bearer ' + token)
+            .then((res) => {
+                expect(res.status).toBe(200);
+                done();
+            });
+    });
+
+    it('Should access the user completed order endpoint', (done) => {
+        request
+            .get(`/orders/completed/${user_id}`)
+            .set('Authorization', 'bearer ' + token)
+            .then((res) => {
+                expect(res.status).toBe(200);
+                done();
+            });
+    });
+
     it('Should access the update endpoint', (done) => {
         const newOrder: Order = {
             products: [
@@ -125,14 +146,13 @@ describe('Order Handler', () => {
                 },
             ],
             user_id,
-            status: false,
+            status: 'complete',
         };
         request
             .put(`/orders/${order_id}`)
             .send(newOrder)
             .set('Authorization', 'bearer ' + token)
             .then((res) => {
-                console.log(res.body);
                 expect(res.status).toBe(200);
                 done();
             });
@@ -146,13 +166,5 @@ describe('Order Handler', () => {
                 expect(res.status).toBe(200);
                 done();
             });
-    });
-
-    xit('Should access the current endpoint', (done) => {
-        done();
-    });
-
-    xit('Should access the completed endpoint', (done) => {
-        done();
     });
 });

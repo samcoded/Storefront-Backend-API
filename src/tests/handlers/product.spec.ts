@@ -9,7 +9,7 @@ dotenv.config();
 const request = supertest(app);
 const SECRET = process.env.JWTSECRET as Secret;
 
-describe('Product Handler', () => {
+describe('Test Suite for Products Handler', () => {
     const product: Product = {
         name: 'Havells fan',
         price: 2000,
