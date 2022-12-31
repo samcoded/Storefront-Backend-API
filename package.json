@@ -7,13 +7,10 @@
     "start": "node dist/server.js",
     "build": "npx tsc",
     "test": "npm run build && db-migrate --env test up && ENV=test jasmine || db-migrate --env test reset",
-    "testdev": "ENV=test jasmine-ts",
     "dev": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "test2": "db-migrate --env test up && ENV=test jasmine-ts --config spec/support/jasmine.json || db-migrate --env test reset",
-    "build2": "tsc --esModuleInterop src/server.ts --outDir ./dist",
     "db-up": "db-migrate up",
-    "db-down": "db-migrate down"
+    "db-down": "db-migrate reset"
   },
   "repository": "git@github.com:samcoded/Storefront-Backend-API.git",
   "author": "Samuel Anozie",

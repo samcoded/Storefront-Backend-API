@@ -75,13 +75,13 @@ TABLE users (
 -   id of each product in the order
 -   quantity of each product in the order
 -   user_id
--   status of order (active or complete) (true or false)
+-   status of order (active or complete)
 
 ```
 TABLE orders (
   id      SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users (id),
-  status  BOOLEAN NOT NULL
+  status  VARCHAR(8) NOT NULL
 );
 
 TABLE order_products (
