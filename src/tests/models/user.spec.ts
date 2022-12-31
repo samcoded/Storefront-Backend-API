@@ -24,6 +24,9 @@ describe('Test Suite for Users Model', () => {
     it('Check User Exist method is present', () => {
         expect(userStore.checkUserExist).toBeDefined();
     });
+    it('Check User Exist method is present', () => {
+        expect(userStore.checkUserIdExist).toBeDefined();
+    });
     it('Read method is present', () => {
         expect(userStore.read).toBeDefined();
     });
@@ -69,6 +72,28 @@ describe('Test Suite for Users Model', () => {
         const userFromDb = await userStore.read(createdUser.id as number);
 
         expect(userFromDb).toEqual(createdUser);
+
+        await deleteUser(createdUser.id as number);
+    });
+
+    it('Check Username Exist method should return true with the correct username', async () => {
+        const createdUser: User = await createUser(user);
+        const checkUser = await userStore.checkUserExist(
+            createdUser.username as string
+        );
+
+        expect(checkUser).toEqual(true);
+
+        await deleteUser(createdUser.id as number);
+    });
+
+    it('Check User ID Exist method should return true with the correct user id', async () => {
+        const createdUser: User = await createUser(user);
+        const checkUser = await userStore.checkUserIdExist(
+            createdUser.id as number
+        );
+
+        expect(checkUser).toEqual(true);
 
         await deleteUser(createdUser.id as number);
     });
