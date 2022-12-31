@@ -1,6 +1,6 @@
-# Storefront Backend Project
+# STOREFRONT BACKEND API PROJECT
 
-## Technologies
+## TECHNOLOGY
 
 -   Postgres for the database
 -   Node/Express for the application logic
@@ -8,6 +8,12 @@
 -   db-migrate from npm for migrations
 -   jsonwebtoken from npm for working with JWTs
 -   jasmine from npm for testing
+
+## REQUIREMENT
+
+[REQUIREMENT.md](REQUIREMENTS.md)
+
+## GETTING STARTED
 
 ### Install dependencies
 
