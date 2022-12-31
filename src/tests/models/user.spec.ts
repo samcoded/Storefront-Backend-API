@@ -21,10 +21,10 @@ describe('Test Suite for Users Model', () => {
     it('Index method is present', () => {
         expect(userStore.index).toBeDefined();
     });
-    it('Check User Exist method is present', () => {
+    it('Check Username Exist method is present', () => {
         expect(userStore.checkUserExist).toBeDefined();
     });
-    it('Check User Exist method is present', () => {
+    it('Check User ID Exist method is present', () => {
         expect(userStore.checkUserIdExist).toBeDefined();
     });
     it('Read method is present', () => {
