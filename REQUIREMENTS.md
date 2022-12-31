@@ -8,32 +8,32 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
--   Index (GET /products )
--   Show (GET /products/:id)
--   Create [token required] (POST /products/create)
--   Update [token required] (PUT /products/:id)
--   Delete [token required] (DELETE /products/:id)
+-   Index `(GET /products )`
+-   Show `(GET /products/:id)`
+-   Create [token required] `(POST /products/create)`
+-   Update [token required] `(PUT /products/:id)`
+-   Delete [token required] `(DELETE /products/:id)`
 -   [OPTIONAL] Top 5 most popular products
 -   [OPTIONAL] Products by category (args: product category)
 
 #### Users
 
--   Create (POST /users)
--   Autheticate or Login (POST /auth)
--   Index [token required] (GET /users)
--   Show [token required] (GET /users/:id)
--   Update [token required] (PUT /users/:id)
--   Delete [token required] (DELETE /users/:id)
+-   Create `(POST /users)`
+-   Autheticate or Login `(POST /auth)`
+-   Index [token required] `(GET /users)`
+-   Show [token required] `(GET /users/:id)`
+-   Update [token required] `(PUT /users/:id)`
+-   Delete [token required] `(DELETE /users/:id)`
 
 #### Orders
 
--   Index [token required] (GET /orders)
--   Create (POST /orders)
--   Show [token required] (GET /orders/:id)
--   Update [token required] (PUT /orders/:id)
--   Delete [token required] (DELETE /orders/:id)
--   Current Order by user (args: user id)[token required] (GET /orders/current/:userId)
--   [OPTIONAL] Completed Orders by user (args: user id)[token required] (GET /orders/complete/:userId)
+-   Index [token required] `(GET /orders)`
+-   Create `(POST /orders)`
+-   Show [token required] `(GET /orders/:id)`
+-   Update [token required] `(PUT /orders/:id)`
+-   Delete [token required] `(DELETE /orders/:id)`
+-   Current Order by user (args: user id)[token required] `(GET /orders/current/:userId)`
+-   [OPTIONAL] Completed Orders by user (args: user id)[token required] `(GET /orders/complete/:userId)`
 
 ## Data Shapes
 
