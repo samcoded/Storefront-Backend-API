@@ -44,6 +44,24 @@ export class UserStore {
         }
     }
 
+    async checkUserIdExist(userId: number): Promise<boolean> {
+        try {
+            const sql = 'SELECT username FROM users WHERE id=($1)';
+            // @ts-ignore
+            const conn = await Client.connect();
+            const { rows } = await conn.query(sql, [userId]);
+
+            if (rows.length > 0) {
+                return true;
+            }
+            conn.release();
+            return false;
+        } catch (err) {
+            // throw new Error(`Could not find user ${userId}. ${err}`);
+            return false;
+        }
+    }
+
     async create(user: User): Promise<User> {
         const { firstname, lastname, username, password } = user;
 

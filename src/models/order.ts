@@ -13,7 +13,7 @@ export interface Order {
     id?: number;
     products: OrderProduct[];
     user_id: number;
-    status: boolean;
+    status: 'active' | 'complete';
 }
 
 export class OrderStore {
@@ -182,13 +182,13 @@ export class OrderStore {
         }
     }
 
-    async getCurrentOrders(id: number) {
+    async getCurrentOrders(userId: number): Promise<Order> {
         try {
             const sql =
-                'SELECT * FROM orders WHERE user_id=($1) AND status=true';
+                'SELECT * FROM orders WHERE user_id=($1) AND status=($2)';
             // @ts-ignore
             const connection = await Client.connect();
-            const { rows } = await connection.query(sql, [id]);
+            const { rows } = await connection.query(sql, [userId, 'active']);
             const order = rows[0];
 
             const orderProductsSql =
@@ -205,18 +205,18 @@ export class OrderStore {
                 products: orderProductRows,
             };
         } catch (err) {
-            throw new Error(`Could not find order ${id}. ${err}`);
+            throw new Error(`Could not find order for user ${userId}. ${err}`);
         }
     }
 
-    async getCompleteOrders(id: number) {
+    async getCompleteOrders(userId: number): Promise<Order[]> {
         try {
             const sql =
-                'SELECT * FROM orders WHERE user_id=($1) AND status=false';
+                'SELECT * FROM orders WHERE user_id=($1) AND status=($2)';
             // @ts-ignore
             const connection = await Client.connect();
 
-            const { rows } = await connection.query(sql, [id]);
+            const { rows } = await connection.query(sql, [userId, 'complete']);
 
             const orderProductsSql =
                 'SELECT product_id, quantity, name, price FROM order_products JOIN products ON order_products.product_id=products.id WHERE order_id=($1)';
